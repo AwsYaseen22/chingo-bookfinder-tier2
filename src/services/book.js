@@ -7,4 +7,3 @@ export default async function getBooks ( title ) {
     return response.data
 }
 
-// export default { getBooks }

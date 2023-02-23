@@ -10,7 +10,7 @@ export default function ListItem ( { book } ) {
     }
 
     return (
-        <article className="rounded-xl bg-white shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 p-3">
+        <article className="rounded-xl bg-white shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 p-3 border">
             <div className=" relative flex justify-center overflow-hidden p-3">
                 <img src={details.image || noImage} alt={details.title} className="object-cover h-64 w-48 rounded-xl" />
             </div>
