@@ -16,16 +16,25 @@ function App () {
 
   const handleBookTitle = ( event ) => {
     event.preventDefault()
-    console.log( event.target.value );
-    setBooktitle( event.target.value )
+    setBooktitle( event.target.value.trim() )
   }
   const handleSubmit = ( event ) => {
+    if ( !booktitle.length ) {
+      setMessage( 'Please write something to search for!' )
+      return
+    }
     event.preventDefault()
     setLoading( true )
-    getBooks( booktitle ).then( ( books ) => {
-      setLoading( false )
-      setBooks( books.items )
-    } ).catch( error => console.log( error ) )
+    getBooks( booktitle )
+      .then( ( books ) => {
+        setLoading( false )
+        setBooks( books.items )
+      } )
+      .catch( error => {
+        console.log( error )
+        setLoading( false )
+        setMessage( error.message + ' Please try again later' )
+      } )
     if ( books.length === 0 ) {
       setMessage( 'Sorry we could not find this title 😔' )
     }
