@@ -10,35 +10,37 @@ import Search from './components/Search';
 
 function App () {
   const [booktitle, setBooktitle] = useState( '' )
-  const [books, setBooks] = useState( [] )
+  const [booksList, setBooksList] = useState( [] )
   const [message, setMessage] = useState( 'Please search for a book by Book Title' )
   const [loading, setLoading] = useState( false )
 
   const handleBookTitle = ( event ) => {
-    event.preventDefault()
-    setBooktitle( event.target.value.trim() )
+    setBooktitle( event.target.value )
   }
   const handleSubmit = ( event ) => {
-    if ( !booktitle.length ) {
-      setMessage( 'Please write something to search for!' )
-      return
-    }
     event.preventDefault()
-    setLoading( true )
-    getBooks( booktitle )
-      .then( ( books ) => {
-        setLoading( false )
-        setBooks( books.items )
-      } )
-      .catch( error => {
-        console.log( error )
-        setLoading( false )
-        setMessage( error.message + ' Please try again later' )
-      } )
-    if ( books.length === 0 ) {
-      setMessage( 'Sorry we could not find this title 😔' )
+    if ( !booktitle.trim().length ) {
+      setBooksList( [] )
+      return setMessage( 'Please write something to search for!' )
+
+    } else {
+
+      setLoading( true )
+      getBooks( booktitle )
+        .then( ( books ) => {
+          setLoading( false )
+          setBooksList( books.items )
+          if ( booksList.length === 0 ) {
+            setMessage( 'Sorry we could not find this title 😔' )
+          }
+          setBooktitle( '' )
+        } )
+        .catch( error => {
+          console.log( error )
+          setLoading( false )
+          setMessage( error.message + ' Please try again later' )
+        } )
     }
-    setBooktitle( '' )
   }
   return (
     <div className="App px-6 lg:px-8 ">
@@ -47,9 +49,9 @@ function App () {
       <Search handleSubmit={handleSubmit} booktitle={booktitle} handleBookTitle={handleBookTitle} />
       {loading ? <Loading /> :
         <div className="divide-x divide-slate-100">
-          {books?.length ?
+          {booksList?.length ?
             <List>
-              {books.map( ( book ) => (
+              {booksList.map( ( book ) => (
                 <ListItem key={book.id} book={book} />
               ) )}
             </List>

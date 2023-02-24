@@ -1,10 +1,10 @@
 import axios from 'axios'
-const baseUrl = 'https://www.googleapi.com/books/v1/volumes?q='
-const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
+
+const baseUrl = 'http://localhost:8000/api/books/'
+
 
 export default async function getBooks ( title ) {
-
-    const response = await axios.get( `${baseUrl}intitle:${title}&key=${apiKey}` )
+    const response = await axios.get( `${baseUrl}${title}` )
     return response.data
 
 }

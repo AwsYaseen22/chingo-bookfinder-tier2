@@ -7,6 +7,7 @@ export default function ListItem ( { book } ) {
         title: book.volumeInfo.title,
         author: book.volumeInfo.authors,
         publisher: book.volumeInfo.publisher,
+        info: book.volumeInfo.infoLink
     }
 
     return (
@@ -23,8 +24,8 @@ export default function ListItem ( { book } ) {
                 <div className="mt-3 flex items-end justify-center">
 
                     <div className="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
+                        <a className="btn btn-blue" href={details.info} target="_blank" rel="noreferrer" >See this book</a>
 
-                        <button className="text-sm">See this book</button>
                     </div>
                 </div>
             </div>
