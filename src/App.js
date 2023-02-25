@@ -30,7 +30,7 @@ function App () {
         .then( ( books ) => {
           setLoading( false )
           setBooksList( books.items )
-          if ( booksList.length === 0 ) {
+          if ( booksList?.length === 0 ) {
             setMessage( 'Sorry we could not find this title 😔' )
           }
           setBooktitle( '' )
